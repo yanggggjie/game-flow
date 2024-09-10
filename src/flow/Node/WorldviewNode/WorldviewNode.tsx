@@ -1,6 +1,7 @@
 import { twMerge } from 'tailwind-merge'
-import { Handle, Position, useNodeId, useReactFlow } from '@xyflow/react'
+import { Handle, Position, useNodeId, useReactFlow, Node } from '@xyflow/react'
 export interface IWorldviewNode extends Node {
+  type: 'WorldviewNode'
   data: Record<string, any>
 }
 
@@ -21,6 +22,8 @@ export default function WorldviewNode() {
       >
         下一个节点
       </button>
+      <Handle type="target" position={Position.Left} />
+
       <Handle type="source" position={Position.Right} />
     </div>
   )

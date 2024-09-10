@@ -5,7 +5,6 @@ import '@xyflow/react/dist/style.css'
 import TopicNode from './Node/TopicNode/TopicNode.tsx'
 import useLayout from '../hooks/useLayout.ts'
 import { onNodesChange } from '../store/onNodesChange.ts'
-import { onEdgesChange } from '../store/onEdgesChange.ts'
 import SettingNode from './Node/SettingNode/SettingNode.tsx'
 import CharacterImageNode from './Node/CharacterNode/CharacterImageNode/CharacterImageNode.tsx'
 import MainNode from './Node/CharacterNode/MainNode/MainNode.tsx'
@@ -17,6 +16,8 @@ import TranslateNode from './Node/TranslateNode/TranslateNode.tsx'
 import BackgroundNode from './Node/WorldviewNode/BackgroundNode/BackgroundNode.tsx'
 import WorldviewNode from './Node/WorldviewNode/WorldviewNode.tsx'
 import CombatNode from './Node/WorldviewNode/CombatNode/CombatNode.tsx'
+import CustomEdge from './Edge/CustomEdge.tsx'
+import { onEdgesChange } from '../store/onEdgesChange.ts'
 
 interface Props {}
 const nodeTypes = {
@@ -33,6 +34,7 @@ const nodeTypes = {
   WorldviewNode,
   CombatNode,
 }
+const edgeTypes = { CustomEdge }
 
 export default function Flow({}: Props) {
   const { doLayout } = useLayout()
@@ -41,7 +43,7 @@ export default function Flow({}: Props) {
     <div className={'w-screen h-screen'}>
       <ReactFlow
         nodeTypes={nodeTypes}
-        // @ts-ignore
+        edgeTypes={edgeTypes}
         nodes={nodes}
         edges={edges}
         onNodesChange={(changes: NodeChange[]) => {

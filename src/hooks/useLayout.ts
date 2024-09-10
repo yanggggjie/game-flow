@@ -1,5 +1,5 @@
 import ELK from 'elkjs/lib/elk.bundled'
-import { useReactFlow } from '@xyflow/react'
+import { PanOnScrollMode, useReactFlow } from '@xyflow/react'
 import { useFlowNodesEdges } from '../store/useFlowNodesEdges.ts'
 
 const elk = new ELK()
@@ -26,7 +26,13 @@ export default function useLayout() {
     const graph = {
       id: 'root',
       layoutOptions: layoutOptions,
-      children: getNodes(),
+      children: getNodes().map((node) => {
+        return {
+          ...node,
+          width: node.measured?.width,
+          height: node.measured?.height,
+        }
+      }),
       edges: getEdges(),
     } as any
 
@@ -37,7 +43,7 @@ export default function useLayout() {
       node.position = { x: node.x, y: node.y }
     })
 
-    useFlowNodesEdges.setState(() => {
+    useFlowNodesEdges.setState(({ nodes }) => {
       return {
         nodes: children,
       }

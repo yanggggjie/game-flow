@@ -1,6 +1,7 @@
 import { twMerge } from 'tailwind-merge'
-import { Handle, Position, useNodeId, useReactFlow } from '@xyflow/react'
+import { Handle, Position, useNodeId, useReactFlow, Node } from '@xyflow/react'
 export interface IStoryNode extends Node {
+  type: 'StoryNode'
   data: Record<string, any>
 }
 
@@ -21,6 +22,8 @@ export default function StoryNode() {
       >
         下一个节点
       </button>
+      <Handle type="target" position={Position.Left} />
+
       <Handle type="source" position={Position.Right} />
     </div>
   )

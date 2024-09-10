@@ -3,8 +3,27 @@ import { Edge } from '@xyflow/react'
 import { immer } from 'zustand/middleware/immer'
 import { v4 as uuid } from 'uuid'
 import { ITopicNode } from '../flow/Node/TopicNode/TopicNode.tsx'
+import { ICharacterImageNode } from '../flow/Node/CharacterNode/CharacterImageNode/CharacterImageNode.tsx'
+import { IBackgroundNode } from '../flow/Node/WorldviewNode/BackgroundNode/BackgroundNode.tsx'
+import { IMainNode } from '../flow/Node/CharacterNode/MainNode/MainNode.tsx'
+import { ISupportNode } from '../flow/Node/CharacterNode/SupportNode/SupportNode.tsx'
+import { ISettingNode } from '../flow/Node/SettingNode/SettingNode.tsx'
+import { IChapterNode } from '../flow/Node/StoryNode/ChapterNode/ChapterNode.tsx'
+import { ITranslateNode } from '../flow/Node/TranslateNode/TranslateNode.tsx'
+import { ICombatNode } from '../flow/Node/WorldviewNode/CombatNode/CombatNode.tsx'
+import { IWorldviewNode } from '../flow/Node/WorldviewNode/WorldviewNode.tsx'
 
-type ICustomNode = ITopicNode
+type ICustomNode =
+  | ICharacterImageNode
+  | IMainNode
+  | ISupportNode
+  | ISettingNode
+  | IChapterNode
+  | ITopicNode
+  | ITranslateNode
+  | IBackgroundNode
+  | ICombatNode
+  | IWorldviewNode
 
 type RFState = {
   nodes: ICustomNode[]
