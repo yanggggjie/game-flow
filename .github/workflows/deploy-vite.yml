@@ -38,10 +38,6 @@ jobs:
 
       - name: Build the project with pnpm
         run: pnpm run build
-        env:
-          # MY_OPENAI_TOKEN: ${{ secrets.MY_OPENAI_TOKEN }}
-          # MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-          # GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
