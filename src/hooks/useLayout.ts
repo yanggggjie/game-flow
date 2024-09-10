@@ -1,5 +1,5 @@
 import ELK from 'elkjs/lib/elk.bundled'
-import { PanOnScrollMode, useReactFlow } from '@xyflow/react'
+import { useReactFlow } from '@xyflow/react'
 import { useFlowNodesEdges } from '../store/useFlowNodesEdges.ts'
 
 const elk = new ELK()

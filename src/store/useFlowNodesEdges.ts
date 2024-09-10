@@ -12,18 +12,22 @@ import { IChapterNode } from '../flow/Node/StoryNode/ChapterNode/ChapterNode.tsx
 import { ITranslateNode } from '../flow/Node/TranslateNode/TranslateNode.tsx'
 import { ICombatNode } from '../flow/Node/WorldviewNode/CombatNode/CombatNode.tsx'
 import { IWorldviewNode } from '../flow/Node/WorldviewNode/WorldviewNode.tsx'
+import { IStoryNode } from '../flow/Node/StoryNode/StoryNode.tsx'
+import { ICharacterNode } from '../flow/Node/CharacterNode/CharacterNode.tsx'
 
 type ICustomNode =
   | ICharacterImageNode
   | IMainNode
   | ISupportNode
   | ISettingNode
+  | ICharacterNode
   | IChapterNode
   | ITopicNode
   | ITranslateNode
   | IBackgroundNode
   | ICombatNode
   | IWorldviewNode
+  | IStoryNode
 
 type RFState = {
   nodes: ICustomNode[]

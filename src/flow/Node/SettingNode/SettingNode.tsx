@@ -1,5 +1,9 @@
 import { twMerge } from 'tailwind-merge'
 import { Handle, Position, useNodeId, useReactFlow, Node } from '@xyflow/react'
+import { addWorldviewNode } from '../WorldviewNode/addWorldviewNode.ts'
+import { addCharacterNode } from '../CharacterNode/addCharacterNode.ts'
+import { addStoryNode } from '../StoryNode/addStoryNode.ts'
+import { useHasChild } from '../../../hooks/useHasChild.ts'
 export interface ISettingNode extends Node {
   type: 'SettingNode'
   data: Record<string, any>
@@ -9,6 +13,7 @@ export default function SettingNode() {
   const { getNode } = useReactFlow()
   const id = useNodeId()!
   const node = getNode(id)! as unknown as ISettingNode
+  const { hasChild } = useHasChild()
 
   return (
     <div
@@ -17,11 +22,19 @@ export default function SettingNode() {
       )}
     >
       <div className={'font-bold text-xl'}>{node.data.title}</div>
-      <button
-        className={'bg-green-300 px-2 py-1 hover:bg-green-500 rounded-full'}
-      >
-        下一个节点
-      </button>
+      {!hasChild && (
+        <button
+          className={'bg-green-300 px-2 py-1 hover:bg-green-500 rounded-full'}
+          onClick={() => {
+            addWorldviewNode({ id })
+            addCharacterNode({ id })
+            addStoryNode({ id })
+          }}
+        >
+          下一个节点
+        </button>
+      )}
+
       <Handle type="target" position={Position.Left} />
 
       <Handle type="source" position={Position.Right} />

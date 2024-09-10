@@ -1,5 +1,6 @@
 import { twMerge } from 'tailwind-merge'
 import { Handle, Position, useNodeId, useReactFlow, Node } from '@xyflow/react'
+import { useHasChild } from '../../../../hooks/useHasChild.ts'
 export interface ICharacterImageNode extends Node {
   type: 'CharacterImageNode'
   data: Record<string, any>
@@ -9,7 +10,6 @@ export default function CharacterImageNode() {
   const { getNode } = useReactFlow()
   const id = useNodeId()!
   const node = getNode(id)! as unknown as ICharacterImageNode
-
   return (
     <div
       className={twMerge(
@@ -17,11 +17,7 @@ export default function CharacterImageNode() {
       )}
     >
       <div className={'font-bold text-xl'}>{node.data.title}</div>
-      <button
-        className={'bg-green-300 px-2 py-1 hover:bg-green-500 rounded-full'}
-      >
-        下一个节点
-      </button>
+
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
     </div>

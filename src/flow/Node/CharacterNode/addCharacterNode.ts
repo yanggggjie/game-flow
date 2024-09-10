@@ -4,22 +4,22 @@ import { uuid } from '../../../util.ts'
 import { Edge } from '@xyflow/react'
 import { activeEdgeOption } from '../../Edge/edges.ts'
 import { useFlowNodesEdges } from '../../../store/useFlowNodesEdges.ts'
-import { ISettingNode } from './SettingNode.tsx'
+import { ICharacterNode } from './CharacterNode.tsx'
 
-export function addSettingNode({ id }: { id: string }) {
+export function addCharacterNode({ id }: { id: string }) {
   const node = getNode(id) as ITopicNode
   const dx = node.width ? node.width / 2 : 0
   const dy = node.height ? node.height / 2 : 0
-  const newNode: ISettingNode = {
+  const newNode: ICharacterNode = {
     selected: false,
     position: {
       x: node.position.x + dx,
       y: node.position.y + dy,
     },
     id: uuid(),
-    type: 'SettingNode',
+    type: 'CharacterNode',
     data: {
-      title: '基本设定',
+      title: '人物志',
     },
   }
 
