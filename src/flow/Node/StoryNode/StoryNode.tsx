@@ -16,7 +16,7 @@ export default function StoryNode() {
   return (
     <div
       className={twMerge(
-        'w-[200px] h-[100px] grid place-items-center bg-[#e3eafe] border-[#7492f7] border-2 rounded-xl',
+        'w-[200px] h-[100px] grid place-items-center bg-[#bce8b0] border-[#7492f7] border-2 rounded-xl text-black',
       )}
     >
       <div className={'font-bold text-xl'}>{node.data.title}</div>

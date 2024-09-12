@@ -22,7 +22,6 @@ export default function TopicNode() {
       <div className={'font-bold text-xl'}>{node.data.title}</div>
       {!hasChild && (
         <button
-          className={'bg-green-300 px-2 py-1 hover:bg-green-500 rounded-full'}
           onClick={() => {
             addSettingNode({ id })
           }}

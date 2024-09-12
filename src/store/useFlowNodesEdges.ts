@@ -15,7 +15,7 @@ import { IWorldviewNode } from '../flow/Node/WorldviewNode/WorldviewNode.tsx'
 import { IStoryNode } from '../flow/Node/StoryNode/StoryNode.tsx'
 import { ICharacterNode } from '../flow/Node/CharacterNode/CharacterNode.tsx'
 
-type ICustomNode =
+export type ICustomNode =
   | ICharacterImageNode
   | IMainNode
   | ISupportNode
@@ -45,6 +45,7 @@ export const useFlowNodesEdges = create<RFState>()(
         data: {
           title: '选定主题',
         },
+        selected: true,
       },
     ],
     edges: [],

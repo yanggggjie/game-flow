@@ -17,7 +17,7 @@ export default function CharacterNode() {
   return (
     <div
       className={twMerge(
-        'w-[200px] h-[100px] grid place-items-center bg-[#e3eafe] border-[#7492f7] border-2 rounded-xl',
+        'w-[200px] h-[100px] grid place-items-center bg-[#f6c889] border-[#7492f7] border-2 rounded-xl',
       )}
     >
       <div className={'font-bold text-xl'}>{node.data.title}</div>

@@ -18,22 +18,37 @@ import WorldviewNode from './Node/WorldviewNode/WorldviewNode.tsx'
 import CombatNode from './Node/WorldviewNode/CombatNode/CombatNode.tsx'
 import CustomEdge from './Edge/CustomEdge.tsx'
 import { onEdgesChange } from '../store/onEdgesChange.ts'
+import NodeConfig from './NodeConfig.tsx'
+import NodeContainer from './NodeContainer.tsx'
 
 interface Props {}
-const nodeTypes = {
-  TopicNode,
-  SettingNode,
-  CharacterImageNode,
-  MainNode,
-  SupportNode,
-  CharacterNode,
-  ChapterNode,
-  StoryNode,
-  TranslateNode,
-  BackgroundNode,
-  WorldviewNode,
-  CombatNode,
-}
+const nodeTypes = Object.fromEntries(
+  Object.entries({
+    TopicNode,
+    SettingNode,
+    CharacterImageNode,
+    MainNode,
+    SupportNode,
+    CharacterNode,
+    ChapterNode,
+    StoryNode,
+    TranslateNode,
+    BackgroundNode,
+    WorldviewNode,
+    CombatNode,
+  }).map(([k, V]) => {
+    return [
+      k,
+      () => {
+        return (
+          <NodeContainer>
+            <V></V>
+          </NodeContainer>
+        )
+      },
+    ]
+  }),
+)
 const edgeTypes = { CustomEdge }
 
 export default function Flow({}: Props) {
@@ -63,6 +78,9 @@ export default function Flow({}: Props) {
         }}
       >
         <Background></Background>
+        <div className={'absolute top-10 left-10 z-10'}>
+          <NodeConfig></NodeConfig>
+        </div>
       </ReactFlow>
     </div>
   )
