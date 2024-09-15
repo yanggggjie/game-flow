@@ -3,14 +3,14 @@ import {
   INodeType,
   useFlowNodesEdges,
 } from '../../../store/useFlowNodesEdges.ts'
-import { node } from 'globals'
 import TopicConfig from '@/flow/Node/NodeConfig/TopicConfig.tsx'
 import SettingConfig from '@/flow/Node/NodeConfig/SettingConfig.tsx'
 import CharacterImageConfig from '@/flow/Node/NodeConfig/CharacterImageConfig.tsx'
 import TranslateConfig from '@/flow/Node/NodeConfig/TranslateConfig.tsx'
 import { useOnSelectionChange } from '@xyflow/react'
-import { LucideDribbble } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
+import { FaCompressAlt, FaExpandAlt } from 'react-icons/fa'
+import Chat from '@/flow/Node/NodeConfig/Chat/Chat.tsx'
 interface Props {}
 
 const TopicConfigNodeType: INodeType[] = ['TopicNode']
@@ -40,6 +40,8 @@ function getConfig(nodeType: INodeType) {
 
 export default function NodeConfig({}: Props) {
   const { nodes, edges } = useFlowNodesEdges()
+  const [isExpand, setIsExpand] = useState(true)
+
   const [showWiderRing, setShowWiderRing] = useState(false)
   const activeNode = nodes.filter((node) => {
     return node.selected
@@ -61,12 +63,33 @@ export default function NodeConfig({}: Props) {
   return (
     <div
       className={twMerge(
-        'w-[300px] h-[600px] rounded-xl ring-8 bg-red-300',
-        'transition-shadow',
+        'w-[300px] h-[600px]',
+        ' rounded-xl ring-8 bg-gray-200',
+        'transition-all',
         showWiderRing && 'ring-[15px]',
+        'relative',
+        isExpand && 'w-[80vw] h-[80vh]',
+        'flex flex-col',
       )}
     >
-      <Config></Config>
+      <div
+        className={'absolute top-1 left-1 rotate-90 hover: ring-2 bg-white'}
+        onClick={() => {
+          setIsExpand(!isExpand)
+        }}
+      >
+        {isExpand ? <FaCompressAlt /> : <FaExpandAlt />}
+      </div>
+      <div
+        className={
+          'font-bold flex flex-row items-center justify-center h-[20px] select-none'
+        }
+      >
+        {activeNode.data.title}
+      </div>
+      <div className={'flex-1 w-full  rounded-xl overflow-hidden'}>
+        <Chat></Chat>
+      </div>
     </div>
   )
 }
