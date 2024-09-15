@@ -14,6 +14,7 @@ import { ICombatNode } from '../flow/Node/WorldviewNode/CombatNode/CombatNode.ts
 import { IWorldviewNode } from '../flow/Node/WorldviewNode/WorldviewNode.tsx'
 import { IStoryNode } from '../flow/Node/StoryNode/StoryNode.tsx'
 import { ICharacterNode } from '../flow/Node/CharacterNode/CharacterNode.tsx'
+import { edges, nodes } from '@/flow/data.ts'
 
 export type ICustomNode =
   | ICharacterImageNode
@@ -29,6 +30,8 @@ export type ICustomNode =
   | IWorldviewNode
   | IStoryNode
 
+export type INodeType = ICustomNode['type']
+
 type RFState = {
   nodes: ICustomNode[]
   edges: Edge[]
@@ -36,18 +39,9 @@ type RFState = {
 
 export const useFlowNodesEdges = create<RFState>()(
   immer((set, get) => ({
-    nodes: [
-      {
-        // @ts-ignore
-        id: uuid(),
-        type: 'TopicNode',
-        position: { x: 1, y: 1 },
-        data: {
-          title: '选定主题',
-        },
-        selected: true,
-      },
-    ],
-    edges: [],
+    // @ts-ignore
+    nodes: nodes,
+    // @ts-ignore
+    edges: edges,
   })),
 )

@@ -3,7 +3,6 @@ import { Handle, Position, useNodeId, useReactFlow, Node } from '@xyflow/react'
 import { addTranslateNode } from '../../TranslateNode/addTranslateNode.ts'
 import { useHasChild } from '../../../../hooks/useHasChild.ts'
 
-import TruthSlider from './TruthSlider.tsx'
 export interface IBackgroundNode extends Node {
   type: 'BackgroundNode'
   data: Record<string, any>
@@ -18,11 +17,10 @@ export default function BackgroundNode() {
   return (
     <div
       className={twMerge(
-        'w-[200px] h-[200px] grid place-items-center bg-[#b494f4] border-[#7492f7] border-2 rounded-xl text-white',
+        'w-[200px] h-[100px] grid place-items-center bg-[#b494f4] border-[#7492f7] border-2 rounded-xl text-white',
       )}
     >
       <div className={'font-bold text-xl'}>{node.data.title}</div>
-      <TruthSlider></TruthSlider>
       {!hasChild && (
         <button
           onClick={() => {

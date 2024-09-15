@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useFlowNodesEdges } from '../store/useFlowNodesEdges.ts'
-import { Background, NodeChange, ReactFlow } from '@xyflow/react'
+import {
+  Background,
+  NodeChange,
+  ReactFlow,
+  useOnSelectionChange,
+} from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import TopicNode from './Node/TopicNode/TopicNode.tsx'
 import useLayout from '../hooks/useLayout.ts'
@@ -18,7 +23,7 @@ import WorldviewNode from './Node/WorldviewNode/WorldviewNode.tsx'
 import CombatNode from './Node/WorldviewNode/CombatNode/CombatNode.tsx'
 import CustomEdge from './Edge/CustomEdge.tsx'
 import { onEdgesChange } from '../store/onEdgesChange.ts'
-import NodeConfig from './NodeConfig.tsx'
+import NodeConfig from './Node/NodeConfig/NodeConfig.tsx'
 import NodeContainer from './NodeContainer.tsx'
 
 interface Props {}
@@ -54,6 +59,7 @@ const edgeTypes = { CustomEdge }
 export default function Flow({}: Props) {
   const { doLayout } = useLayout()
   const { nodes, edges } = useFlowNodesEdges()
+
   return (
     <div className={'w-screen h-screen'}>
       <ReactFlow
