@@ -1,22 +1,9 @@
 import { ProChat, ProChatInstance } from '@ant-design/pro-chat'
-
 import { Avatar, Card, Spin } from 'antd'
 import { useTheme } from 'antd-style'
 import { useRef, useState } from 'react'
-import { MockSSEResponse } from '@ant-design/pro-chat/es/ProChat/mocks/sseResponse'
 
-const dataArray = [
-  `data: {"id": "chatcmpl-6w****KZb6hx****RzIghUz****Qy", "object": "chat.completion.chunk", "created": 1703582861554, "model": "gpt-3.5-turbo-0301", "choices": [{"delta": {"content": "Searching","type":"function"}, "index": 0, "finish_reason": null}]}`,
-  `data: {"id": "chatcmpl-6w****KZb6hx****RzIghUz****Qy", "object": "chat.completion.chunk", "created": 1703582861554, "model": "gpt-3.5-turbo-0301", "choices": [{"delta": {"content": "苹果"}, "index": 0, "finish_reason": null}]}`,
-  `data: {"id": "chatcmpl-6w****KZb6hx****RzIghUz****Qy", "object": "chat.completion.chunk", "created": 1703582861554, "model": "gpt-3.5-turbo-0301", "choices": [{"delta": {"content": "公司"}, "index": 0, "finish_reason": null}]}`,
-  `data: {"id": "chatcmpl-6w****KZb6hx****RzIghUz****Qy", "object": "chat.completion.chunk", "created": 1703582861554, "model": "gpt-3.5-turbo-0301", "choices": [{"delta": {"content": "是"}, "index": 0, "finish_reason": null}]}`,
-  `data: {"id": "chatcmpl-6w****KZb6hx****RzIghUz****Qy", "object": "chat.completion.chunk", "created": 1703582861554, "model": "gpt-3.5-turbo-0301", "choices": [{"delta": {"content": "一"}, "index": 0, "finish_reason": null}]}`,
-  `data: {"id": "chatcmpl-6w****KZb6hx****RzIghUz****Qy", "object": "chat.completion.chunk", "created": 1703582861554, "model": "gpt-3.5-turbo-0301", "choices": [{"delta": {"content": "家"}, "index": 0, "finish_reason": null}]}`,
-  `data: {"id": "chatcmpl-6w****KZb6hx****RzIghUz****Qy", "object": "chat.completion.chunk", "created": 1703582861554, "model": "gpt-3.5-turbo-0301", "choices": [{"delta": {"content": "科技"}, "index": 0, "finish_reason": null}]}`,
-  `data: {"id": "chatcmpl-6w****KZb6hx****RzIghUz****Qy", "object": "chat.completion.chunk", "created": 1703582861554, "model": "gpt-3.5-turbo-0301", "choices": [{"delta": {"content": "公司"}, "index": 0, "finish_reason": "complete"}]}`,
-]
-
-const LoadingSearch = () => {
+function LoadingSearch() {
   const [loading, setLoading] = useState(true)
 
   setTimeout(() => {
@@ -32,15 +19,28 @@ const LoadingSearch = () => {
   )
 }
 
-export default () => {
+import CatAvatar from '@/assets/cat-avatar.jpeg'
+import { INodeType } from '@/store/useFlowNodesEdges.ts'
+import { MockResponse } from '@/flow/Node/NodeConfig/Chat/streamResponse.ts'
+
+export default function Chat({ nodeType }: { nodeType: INodeType }) {
   const theme = useTheme()
   const chatRef = useRef<ProChatInstance>()
+
   return (
     <div
       style={{ background: theme.colorBgLayout }}
       className={'h-full rounded-xl'}
     >
       <ProChat
+        userMeta={{
+          avatar: '😄',
+          // title: 'user',
+        }}
+        assistantMeta={{
+          avatar: CatAvatar,
+          // title: 'assistant',
+        }}
         chatRef={chatRef}
         transformToChatMessage={async (pre) => {
           try {
@@ -57,7 +57,9 @@ export default () => {
             } else {
               return content
             }
-          } catch (error) {}
+          } catch (error) {
+            console.log(error)
+          }
           return ''
         }}
         chatItemRenderConfig={{
@@ -80,47 +82,15 @@ export default () => {
             }
           },
         }}
-        request={async () => {
-          const mockResponse = new MockSSEResponse(dataArray)
-          const response = mockResponse.getResponse()
-
-          // 确保服务器响应是成功的
-          if (!response.ok || !response.body) {
-            throw new Error(`HTTP error! status: ${response.status}`)
-          }
-
-          // 获取 reader
-          const reader = response.body.getReader()
-          const decoder = new TextDecoder('utf-8')
-          const encoder = new TextEncoder()
-
-          const readableStream = new ReadableStream({
-            async start(controller) {
-              function push() {
-                reader
-                  .read()
-                  .then(({ done, value }) => {
-                    if (done) {
-                      controller.close()
-                      return
-                    }
-                    const chunk = decoder.decode(value, { stream: true })
-                    const message = chunk.replace('data: ', '')
-                    const parsed = JSON.parse(message)
-                    controller.enqueue(
-                      encoder.encode(JSON.stringify(parsed.choices[0])),
-                    )
-                    push()
-                  })
-                  .catch((err) => {
-                    console.error('读取流中的数据时发生错误', err)
-                    controller.error(err)
-                  })
-              }
-              push()
-            },
-          })
-          return new Response(readableStream)
+        request={async (x) => {
+          const question = x[x.length - 1].content as string
+          // todo
+          // const mockResponse = new MockSSEResponse(
+          //   generateDataArrayFromSentence(questionToAnswer(question)),
+          // )
+          const mockedData: string = `这是一段模拟的流式字符串数据。本次会话传入了123条消息`
+          const mockResponse = new MockResponse(mockedData, 0)
+          return mockResponse.getResponse()
         }}
       />
     </div>

@@ -11,6 +11,7 @@ import { useOnSelectionChange } from '@xyflow/react'
 import { twMerge } from 'tailwind-merge'
 import { FaCompressAlt, FaExpandAlt } from 'react-icons/fa'
 import Chat from '@/flow/Node/NodeConfig/Chat/Chat.tsx'
+import ChatChat from '@/flow/Node/NodeConfig/Chat/ChatChat.tsx'
 interface Props {}
 
 const TopicConfigNodeType: INodeType[] = ['TopicNode']
@@ -88,7 +89,8 @@ export default function NodeConfig({}: Props) {
         {activeNode.data.title}
       </div>
       <div className={'flex-1 w-full  rounded-xl overflow-hidden'}>
-        <Chat></Chat>
+        {/*<Chat nodeType={activeNode.type}></Chat>*/}
+        <ChatChat></ChatChat>
       </div>
     </div>
   )

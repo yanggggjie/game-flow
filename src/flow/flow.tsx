@@ -1,11 +1,6 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useFlowNodesEdges } from '../store/useFlowNodesEdges.ts'
-import {
-  Background,
-  NodeChange,
-  ReactFlow,
-  useOnSelectionChange,
-} from '@xyflow/react'
+import { Background, NodeChange, ReactFlow } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import TopicNode from './Node/TopicNode/TopicNode.tsx'
 import useLayout from '../hooks/useLayout.ts'
@@ -24,36 +19,22 @@ import CombatNode from './Node/WorldviewNode/CombatNode/CombatNode.tsx'
 import CustomEdge from './Edge/CustomEdge.tsx'
 import { onEdgesChange } from '../store/onEdgesChange.ts'
 import NodeConfig from './Node/NodeConfig/NodeConfig.tsx'
-import NodeContainer from './NodeContainer.tsx'
 
 interface Props {}
-const nodeTypes = Object.fromEntries(
-  Object.entries({
-    TopicNode,
-    SettingNode,
-    CharacterImageNode,
-    MainNode,
-    SupportNode,
-    CharacterNode,
-    ChapterNode,
-    StoryNode,
-    TranslateNode,
-    BackgroundNode,
-    WorldviewNode,
-    CombatNode,
-  }).map(([k, V]) => {
-    return [
-      k,
-      () => {
-        return (
-          <NodeContainer>
-            <V></V>
-          </NodeContainer>
-        )
-      },
-    ]
-  }),
-)
+const nodeTypes = {
+  TopicNode,
+  SettingNode,
+  CharacterImageNode,
+  MainNode,
+  SupportNode,
+  CharacterNode,
+  ChapterNode,
+  StoryNode,
+  TranslateNode,
+  BackgroundNode,
+  WorldviewNode,
+  CombatNode,
+}
 const edgeTypes = { CustomEdge }
 
 export default function Flow({}: Props) {
