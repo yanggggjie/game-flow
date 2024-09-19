@@ -15,6 +15,7 @@ export function addCharacterImageNode({ id }: { id: string }) {
     position: {
       x: node.position.x + dx,
       y: node.position.y + dy,
+      // y: node.position.y,
     },
     id: uuid(),
     type: 'CharacterImageNode',

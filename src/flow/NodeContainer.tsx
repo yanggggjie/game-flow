@@ -4,6 +4,7 @@ import { ICustomNode } from '../store/useFlowNodesEdges.ts'
 import { setNodeSelected } from '../store/setNodeSelected.ts'
 import { twMerge } from 'tailwind-merge'
 import { GrLinkNext } from 'react-icons/gr'
+import { motion } from 'framer-motion'
 interface Props {
   children: ReactNode
   showAddNextButton?: boolean
@@ -22,7 +23,8 @@ export default function NodeContainer({
   const [isHover, setIsHover] = useState(false)
 
   return (
-    <div
+    <motion.div
+      layout={true}
       onClick={() => {
         setNodeSelected(id)
         setShowWiderRing(true)
@@ -57,6 +59,6 @@ export default function NodeContainer({
           <div>{<GrLinkNext className={'text-4xl hover:text-blue-400'} />}</div>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }

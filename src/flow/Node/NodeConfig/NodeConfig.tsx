@@ -41,7 +41,7 @@ function getConfig(nodeType: INodeType) {
 
 export default function NodeConfig({}: Props) {
   const { nodes, edges } = useFlowNodesEdges()
-  const [isExpand, setIsExpand] = useState(true)
+  const [isExpand, setIsExpand] = useState(false)
 
   const [showWiderRing, setShowWiderRing] = useState(false)
   const activeNode = nodes.filter((node) => {
