@@ -12,6 +12,7 @@ import { twMerge } from 'tailwind-merge'
 import { FaCompressAlt, FaExpandAlt } from 'react-icons/fa'
 import Chat from '@/flow/Node/NodeConfig/Chat/Chat.tsx'
 import ChatChat from '@/flow/Node/NodeConfig/Chat/ChatChat.tsx'
+import { BsArrowsAngleExpand } from 'react-icons/bs'
 interface Props {}
 
 const TopicConfigNodeType: INodeType[] = ['TopicNode']
@@ -65,7 +66,7 @@ export default function NodeConfig({}: Props) {
     <div
       className={twMerge(
         'w-[300px] h-[600px]',
-        ' rounded-xl ring-8 bg-gray-200',
+        ' rounded-xl ring-[8px] bg-gray-200',
         'transition-all',
         showWiderRing && 'ring-[15px]',
         'relative',
@@ -74,7 +75,9 @@ export default function NodeConfig({}: Props) {
       )}
     >
       <div
-        className={'absolute top-1 left-1 rotate-90 hover: ring-2 bg-white'}
+        className={
+          'absolute top-1 left-1 rotate-90 hover: ring-2 bg-white rounded'
+        }
         onClick={() => {
           setIsExpand(!isExpand)
         }}
@@ -89,7 +92,6 @@ export default function NodeConfig({}: Props) {
         {activeNode.data.title}
       </div>
       <div className={'flex-1 w-full  rounded-xl overflow-hidden'}>
-        {/*<Chat nodeType={activeNode.type}></Chat>*/}
         <ChatChat></ChatChat>
       </div>
     </div>
