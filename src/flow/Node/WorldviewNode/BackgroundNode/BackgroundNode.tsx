@@ -3,8 +3,8 @@ import { Handle, Position, useNodeId, useReactFlow, Node } from '@xyflow/react'
 import { addTranslateNode } from '../../TranslateNode/addTranslateNode.ts'
 import { useHasChild } from '../../../../hooks/useHasChild.ts'
 import NodeContainer from '@/flow/NodeContainer.tsx'
-import { Slider } from '@/components/ui/slider.tsx'
-import React, { useState } from 'react'
+import React from 'react'
+import BackgroundTruthRatio from '@/flow/Node/WorldviewNode/BackgroundNode/BackgroundTruthRatio.tsx'
 
 export interface IBackgroundNode extends Node {
   type: 'BackgroundNode'
@@ -16,7 +16,6 @@ export default function BackgroundNode() {
   const id = useNodeId()!
   const node = getNode(id)! as unknown as IBackgroundNode
   const { hasChild } = useHasChild()
-  const [value, setValue] = useState([0.5])
 
   return (
     <NodeContainer
@@ -36,19 +35,7 @@ export default function BackgroundNode() {
           }
         >
           <div className={'font-bold text-xl'}>{node.data.title}</div>
-          <div className={'flex flex-row'}>
-            原著相关度:
-            <div className={'w-[20px]'}>{value[0].toFixed(2)}</div>
-          </div>
-          <Slider
-            className={''}
-            value={value}
-            onValueChange={(value) => {
-              setValue(value)
-            }}
-            max={1}
-            step={0.01}
-          />
+          <BackgroundTruthRatio></BackgroundTruthRatio>
         </div>
         <Handle type="target" position={Position.Left} />
         <Handle type="source" position={Position.Right} />

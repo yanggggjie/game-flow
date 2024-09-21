@@ -5,15 +5,39 @@ import { Alert } from 'antd'
 import { MockResponse } from '@ant-design/pro-chat/es/ProChat/mocks/streamResponse'
 import { questionToAnswer } from '@/data/QADataLoader.ts'
 import CatAvatar from '@/assets/cat-avatar.jpeg'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
+import TopicSelect from '@/flow/Node/NodeConfig/Chat/TopicSelect.tsx'
+import { useActivateNode } from '@/flow/Node/NodeConfig/useActivateNode.ts'
 
-export default () => {
+export default function ChatChat() {
   const theme = useTheme()
+  const [portalContainer, setPortalContainer] = useState<HTMLDivElement | null>(
+    null,
+  )
+  const { activeNode } = useActivateNode()
+  const isTopicNode = activeNode.type === 'TopicNode'
+  const [isSelectedTopic, setIsSelectedTopic] = useState(false)
+
+  useEffect(() => {
+    const container = document.querySelector('.ant-pro-chat-input-area')
+    if (container) {
+      setPortalContainer(container as HTMLDivElement)
+    }
+  }, [])
 
   return (
     <div
       style={{ background: theme.colorBgLayout }}
       className={'h-full rounded-xl'}
     >
+      {portalContainer &&
+        !isSelectedTopic &&
+        isTopicNode &&
+        createPortal(
+          <TopicSelect setIsSelectedTopic={setIsSelectedTopic} />,
+          portalContainer,
+        )}
       <ProChat
         userMeta={{
           avatar: '😄',
@@ -23,8 +47,6 @@ export default () => {
           avatar: CatAvatar,
           // title: 'assistant',
         }}
-        // initialChats={initialChats}
-        onScroll={(event) => {}}
         chatItemRenderConfig={{
           titleRender: (item, dom) => {
             if (item.placement === 'right') return dom
@@ -36,23 +58,7 @@ export default () => {
                   padding: '8px 0',
                   gap: 8,
                 }}
-              >
-                {/*<span*/}
-                {/*  style={{*/}
-                {/*    textAlign: 'center',*/}
-                {/*    display: 'inline-flex',*/}
-                {/*    alignItems: 'center',*/}
-                {/*    justifyContent: 'center',*/}
-                {/*    height: 24,*/}
-                {/*    padding: 4,*/}
-                {/*    borderRadius: theme.borderRadius,*/}
-                {/*    border: '1px solid ' + theme.colorSplit,*/}
-                {/*    backgroundColor: theme.colorPrimaryBg,*/}
-                {/*  }}*/}
-                {/*>*/}
-                {/*  🦾 使用 mock 生成*/}
-                {/*</span>*/}
-              </div>
+              ></div>
             )
           },
           actionsRender: false,

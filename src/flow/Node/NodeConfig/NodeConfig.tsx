@@ -13,6 +13,7 @@ import { FaCompressAlt, FaExpandAlt } from 'react-icons/fa'
 import Chat from '@/flow/Node/NodeConfig/Chat/Chat.tsx'
 import ChatChat from '@/flow/Node/NodeConfig/Chat/ChatChat.tsx'
 import { BsArrowsAngleExpand } from 'react-icons/bs'
+import { useActivateNode } from '@/flow/Node/NodeConfig/useActivateNode.ts'
 interface Props {}
 
 const TopicConfigNodeType: INodeType[] = ['TopicNode']
@@ -41,13 +42,9 @@ function getConfig(nodeType: INodeType) {
 }
 
 export default function NodeConfig({}: Props) {
-  const { nodes, edges } = useFlowNodesEdges()
   const [isExpand, setIsExpand] = useState(false)
-
   const [showWiderRing, setShowWiderRing] = useState(false)
-  const activeNode = nodes.filter((node) => {
-    return node.selected
-  })[0]
+  const { activeNode } = useActivateNode()
 
   const onChange = useCallback(({}) => {
     const timer = setTimeout(() => {
@@ -61,7 +58,6 @@ export default function NodeConfig({}: Props) {
     onChange,
   })
 
-  const Config = getConfig(activeNode.type)
   return (
     <div
       className={twMerge(
@@ -92,7 +88,7 @@ export default function NodeConfig({}: Props) {
         {activeNode.data.title}
       </div>
       <div className={'flex-1 w-full  rounded-xl overflow-hidden'}>
-        <ChatChat></ChatChat>
+        <Chat></Chat>
       </div>
     </div>
   )
