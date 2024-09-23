@@ -61,12 +61,12 @@ export default function NodeConfig({}: Props) {
   return (
     <div
       className={twMerge(
-        'w-[300px] h-[600px]',
+        'w-[400px] h-[700px]',
         ' rounded-xl ring-[8px] bg-gray-200',
         'transition-all',
         showWiderRing && 'ring-[15px]',
         'relative',
-        isExpand && 'w-[80vw] h-[80vh]',
+        isExpand && 'w-[90vw] h-[90vh]',
         'flex flex-col',
       )}
     >

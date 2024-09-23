@@ -39,6 +39,7 @@ export default function ChatChat() {
           portalContainer,
         )}
       <ProChat
+        displayMode={'docs'}
         userMeta={{
           avatar: '😄',
           // title: 'user',

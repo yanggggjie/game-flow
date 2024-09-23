@@ -23,7 +23,8 @@ parser.on('readable', () => {
   while ((record = parser.read()) !== null) {
     // 假设 CSV 的第二列是 "提问"，第三列是 "回答"
     const question = record['提问']
-    const answer = record['回答']
+    // const answer = record['回答']
+    const answer = record['markdown回答']
 
     // 将数据存储到 records 数组中
     records.push({

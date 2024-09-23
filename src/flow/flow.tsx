@@ -44,6 +44,9 @@ export default function Flow({}: Props) {
   return (
     <div className={'w-screen h-screen'}>
       <ReactFlow
+        proOptions={{
+          hideAttribution: true,
+        }}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         nodes={nodes}
